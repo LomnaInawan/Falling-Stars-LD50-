@@ -13,7 +13,7 @@ func _ready():
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("m_asteroid") || body.is_in_group("c_asteroid"):
 		body.get_parent().destroyAsteroid()
-		
+		get_parent().playHitFX()
 		var tempFx = explosionScene.instance()
 		get_parent().add_child(tempFx)
 		tempFx.position = position

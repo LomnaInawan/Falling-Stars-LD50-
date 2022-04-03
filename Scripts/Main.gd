@@ -17,14 +17,18 @@ var score = 0
 var metal = 5
 var carbon = 5
 
+func playHitFX():
+	$HitFX.play()
+
 func _ready(): 
 	$UI/ScoreLabel.hide()
 	$UI/MetalLabel.hide()
 	$UI/CarbonLabel.hide()
+	$destroyedPlanet.hide()
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	$UI/MetalLabel.text = "METAL : " + str(metal)
+	$UI/MetalLabel.text = "IRON : " + str(metal)
 	$UI/CarbonLabel.text = "CARBON : " + str(carbon)
 	$UI/ScoreLabel.text = "SCORE : " + str(score)
 
@@ -48,7 +52,7 @@ func _on_timerA_timeout():
 		initalSpawnRate -= decreaseRate * initalSpawnRate
 	score += 1
 	metal += 1
-	carbon += 1
+	carbon += 2
 	pass # Replace with function body.
 
 
@@ -57,16 +61,22 @@ func _on_timerB_timeout():
 	$timerB.wait_time = initalSpawnRate
 	if(initalSpawnRate >= minSpawnRate):
 		initalSpawnRate -= decreaseRate * initalSpawnRate
-	carbon += 1
 	pass # Replace with function body.
 
 
 func _on_Earth_game_over():
 	$timerA.stop()
 	$timerB.stop()
-	$UI/Play.show()
-	$UI/Play.text = "RESTART"
+	$UI/CarbonLabel.hide()
+	$UI/MetalLabel.hide()
+	$UI/ScoreLabel.hide()
 	canRestart = true
+	score += carbon * 5
+	score += metal * 10
+	carbon = 0
+	metal = 0
+	$timerC.start()
+	$timerD.start()
 	pass # Replace with function body.
 
 func _on_Play_button_up():
@@ -75,9 +85,27 @@ func _on_Play_button_up():
 	var placerNode = placer.instance()
 	add_child(placerNode)
 	$UI/Play.hide()
+	$UI/Title.hide()
+	$UI/Tutorial.hide()
+	$textbackground.hide()
 	$UI/ScoreLabel.show()
 	$UI/MetalLabel.show()
 	$UI/CarbonLabel.show()
+	$shield.hide()
+	$metal_collector.hide()
 	if canRestart:
 		get_tree().reload_current_scene()
+	pass # Replace with function body.
+
+func _on_timerC_timeout():
+	$destroyedPlanet.show()
+	canRestart = true
+	pass # Replace with function body.
+
+
+func _on_timerD_timeout():
+	$UI/Play.show()
+	$UI/Play.text = "RESTART"
+	$UI/Title.show()
+	$UI/Title.text = "SCORE : " + str(score)
 	pass # Replace with function body.

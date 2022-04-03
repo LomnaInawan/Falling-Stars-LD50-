@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/Earth.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=2]
@@ -7,22 +7,28 @@
 [ext_resource path="res://Scenes/Placer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/starry_night.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/UI.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/Explosion.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/ExplosionPlayer.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/destroyedPlanet.png" type="Texture" id=9]
+[ext_resource path="res://Assets/textbackground.png" type="Texture" id=10]
+[ext_resource path="res://Assets/metal_collector.png" type="Texture" id=11]
+[ext_resource path="res://Assets/shield.png" type="Texture" id=12]
+[ext_resource path="res://Assets/soundfx/planetExplosionFX.wav" type="AudioStream" id=13]
+[ext_resource path="res://Assets/soundfx/hit.wav" type="AudioStream" id=14]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 c_asteroid_scene = ExtResource( 4 )
 m_asteroid_scene = ExtResource( 3 )
 placer = ExtResource( 5 )
-mSpawnRatio = 0.2
-decreaseRate = 0.09
-initalSpawnRate = 6
-minSpawnRate = 0.8
-spawnRange = Vector2( -11, 595 )
+mSpawnRatio = 0.4
+decreaseRate = 0.03
+initalSpawnRate = 7
+minSpawnRate = 0.7
+spawnRange = Vector2( -200, 900 )
 
 [node name="starry_night" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.705882 )
-position = Vector2( 532.95, 296.284 )
+position = Vector2( 531.828, 295.162 )
 scale = Vector2( 0.85, 0.85 )
 texture = ExtResource( 6 )
 
@@ -30,21 +36,75 @@ texture = ExtResource( 6 )
 position = Vector2( 536.505, 323.344 )
 planetExplosionScene = ExtResource( 8 )
 
+[node name="explosionFX" type="AudioStreamPlayer2D" parent="Earth"]
+stream = ExtResource( 13 )
+
+[node name="destroyedPlanet" type="Sprite" parent="."]
+position = Vector2( 536.505, 323.344 )
+scale = Vector2( 15, 15 )
+texture = ExtResource( 9 )
+
 [node name="timerA" type="Timer" parent="."]
 wait_time = 2.0
 
 [node name="timerB" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="timerC" type="Timer" parent="."]
+one_shot = true
+
+[node name="timerD" type="Timer" parent="."]
+wait_time = 2.4
+one_shot = true
+
+[node name="textbackground" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.662745 )
+position = Vector2( 529.943, 282.143 )
+scale = Vector2( 12.8209, 12.7157 )
+texture = ExtResource( 10 )
+
 [node name="UI" parent="." instance=ExtResource( 7 )]
 
 [node name="Play" parent="UI" index="3"]
+anchor_left = -0.000627041
+anchor_top = 1.05281
+anchor_right = -0.000627041
+anchor_bottom = 1.05281
 margin_left = 388.647
 margin_right = 681.647
+
+[node name="Title" parent="UI" index="4"]
+margin_left = -130.599
+margin_top = -3.49245
+margin_right = 183.401
+margin_bottom = 134.508
+
+[node name="Tutorial" parent="UI" index="5"]
+margin_left = -295.0
+margin_top = -152.0
+margin_right = 336.0
+margin_bottom = 178.0
+
+[node name="shield" type="Sprite" parent="."]
+position = Vector2( 487.713, 301.595 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 12 )
+
+[node name="metal_collector" type="Sprite" parent="."]
+position = Vector2( 562.451, 324.973 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 11 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="HitFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
 
 [connection signal="game_over" from="Earth" to="." method="_on_Earth_game_over"]
 [connection signal="timeout" from="timerA" to="." method="_on_timerA_timeout"]
 [connection signal="timeout" from="timerB" to="." method="_on_timerB_timeout"]
+[connection signal="timeout" from="timerC" to="." method="_on_timerC_timeout"]
+[connection signal="timeout" from="timerD" to="." method="_on_timerD_timeout"]
 [connection signal="button_up" from="UI/Play" to="." method="_on_Play_button_up"]
 
 [editable path="UI"]

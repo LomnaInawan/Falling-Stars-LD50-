@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/planetExplosion.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/ExplosionPlayer.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "planetExplosion"
+step = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("ExplosionPlayer/planetExplosion:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 0.928003 ),
+"transitions": PoolRealArray( 1, 0.87055, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 50, 50 ), Vector2( 70, 70 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ExplosionPlayer/planetExplosion:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.95, 0.96, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.498039 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ExplosionPlayer/planetExplosion:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ExplosionPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 0.4
+anims/planetExplosion = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="planetExplosion" type="Sprite" parent="ExplosionPlayer"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 536.5, 323.3 )
+scale = Vector2( 70, 70 )
+z_index = 2
+texture = ExtResource( 1 )

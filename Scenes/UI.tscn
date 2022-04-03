@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/RoboSapien-4B1E4.otf" type="DynamicFontData" id=1]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 32
 use_filter = true
 font_data = ExtResource( 1 )
@@ -12,12 +12,22 @@ size = 34
 use_filter = true
 font_data = ExtResource( 1 )
 
+[sub_resource type="DynamicFont" id=3]
+size = 40
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+use_filter = true
+font_data = ExtResource( 1 )
+
 [node name="UI" type="CanvasLayer"]
 
 [node name="ScoreLabel" type="Label" parent="."]
 margin_right = 1014.0
 margin_bottom = 38.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "SCORE :  "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -27,7 +37,7 @@ __meta__ = {
 margin_top = 38.0
 margin_right = 1017.0
 margin_bottom = 76.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "METAL :  "
 __meta__ = {
 "_edit_use_anchors_": false
@@ -37,19 +47,66 @@ __meta__ = {
 margin_top = 76.0
 margin_right = 1014.0
 margin_bottom = 114.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "CARBON :  "
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Play" type="Button" parent="."]
-margin_left = 406.0
-margin_top = 479.0
-margin_right = 699.0
-margin_bottom = 519.0
+anchor_left = -0.00308776
+anchor_top = 1.02833
+anchor_right = -0.00308776
+anchor_bottom = 1.02833
+margin_left = 337.162
+margin_top = -133.999
+margin_right = 630.162
+margin_bottom = -91.9994
 custom_fonts/font = SubResource( 2 )
 text = "PLAY"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -157.0
+margin_right = 157.0
+margin_bottom = 138.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 0.654902, 0, 1 )
+text = "Falling Stars"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tutorial" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -255.0
+margin_top = -158.0
+margin_right = 261.0
+margin_bottom = 172.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "The asteroid belt has lost stability and is now about to collide with the Earth. The end is inevitable, all we can do is delay it.
+
+1. Use left click to place structures
+2. Use A and D to cycle between shield and collector.
+3. Shield can take two hits.       is a shield
+4. Collectors can only take one hit.        is a collector.
+5. Collectors are used to take the white asteroids which will increase resources.
+6. Collectors can only capture one asteroid
+7. If out of Carbon you can't place shields
+8. If  out of Iron you can't place collectors"
+valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

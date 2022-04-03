@@ -5,20 +5,23 @@ export (PackedScene) var m_collectorScene
 export var center = Vector2(536.5, 323.3)
 export var radius = 120
 
+export var shieldCost = 2
+export var collectorCost = 5
+
 var mouse_pos = Vector2.ZERO
 var currentTool = ["shield", "m_collector"]
 var currenSelected = 0
 var canPlace = false
 
 func placeTool(var sceneTool):
-	if get_parent().carbon >= 2 and currenSelected == 0:
-		get_parent().carbon -= 2
+	if get_parent().carbon >= shieldCost and currenSelected == 0:
+		get_parent().carbon -= shieldCost
 		var new = sceneTool.instance()
 		get_parent().add_child(new)
 		new.position = position
 		new.rotation_degrees = rotation_degrees
-	if get_parent().metal >= 5 and currenSelected == 1:
-		get_parent().metal -= 5
+	if get_parent().metal >= collectorCost and currenSelected == 1:
+		get_parent().metal -= collectorCost
 		var new = sceneTool.instance()
 		get_parent().add_child(new)
 		new.position = position
@@ -69,6 +72,14 @@ func updateCanPlace():
 		if a.is_in_group("tools"):
 			canPlace = false
 			return
+	
+	if currenSelected == 0 and get_parent().carbon < shieldCost:
+		canPlace = false
+		return 
+	
+	if currenSelected == 1 and get_parent().metal < collectorCost:
+		canPlace = false
+		return
 	
 	canPlace = true
 	return 

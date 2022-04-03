@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/planetExplosionFX.wav-561c9ae189273d759cddd9e5f3ba95c2.sample"
+
+[deps]
+
+source_file="res://Assets/soundfx/planetExplosionFX.wav"
+dest_files=[ "res://.import/planetExplosionFX.wav-561c9ae189273d759cddd9e5f3ba95c2.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

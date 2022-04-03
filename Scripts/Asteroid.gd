@@ -10,5 +10,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var temp =  Vector2(position.x - center.x, position.y - center.y)
+	$KinematicBody2D.rotation_degrees = temp.angle() * 57.2957795131 + 90
 	$KinematicBody2D.move_and_slide(temp.normalized() * -speed * 30 * delta)
 #	pass
