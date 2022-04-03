@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scenes/Earth.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Main.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/M_Asteroid.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/C_Asteroid.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Placer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/starry_night.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/UI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Explosion.tscn" type="PackedScene" id=8]
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 2 )
+c_asteroid_scene = ExtResource( 4 )
+m_asteroid_scene = ExtResource( 3 )
+placer = ExtResource( 5 )
+mSpawnRatio = 0.2
+decreaseRate = 0.09
+initalSpawnRate = 6
+minSpawnRate = 0.8
+spawnRange = Vector2( -11, 595 )
+
+[node name="starry_night" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.705882 )
+position = Vector2( 532.95, 296.284 )
+scale = Vector2( 0.85, 0.85 )
+texture = ExtResource( 6 )
+
+[node name="Earth" parent="." instance=ExtResource( 1 )]
+position = Vector2( 536.505, 323.344 )
+planetExplosionScene = ExtResource( 8 )
+
+[node name="timerA" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="timerB" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="UI" parent="." instance=ExtResource( 7 )]
+
+[node name="Play" parent="UI" index="3"]
+margin_left = 388.647
+margin_right = 681.647
+
+[connection signal="game_over" from="Earth" to="." method="_on_Earth_game_over"]
+[connection signal="timeout" from="timerA" to="." method="_on_timerA_timeout"]
+[connection signal="timeout" from="timerB" to="." method="_on_timerB_timeout"]
+[connection signal="button_up" from="UI/Play" to="." method="_on_Play_button_up"]
+
+[editable path="UI"]
